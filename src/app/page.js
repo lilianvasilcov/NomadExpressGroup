@@ -501,8 +501,8 @@ const DriverSection = () => {
               What Is It Like to Drive for Nomad Express Group?
             </h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              We think you'll appreciate the way we do business at Nomad Express Group. In the world of truck driving jobs, 
-              it's not hard to find a mega carrier who will promise you everything while delivering very little. But that's not us.
+              We think you&apos;ll appreciate the way we do business at Nomad Express Group. In the world of truck driving jobs, 
+              it&apos;s not hard to find a mega carrier who will promise you everything while delivering very little. But that&apos;s not us.
             </p>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
               Today, we have grown to a fleet of over 150 trucks, and have been recognized by multiple sources as one of the 
