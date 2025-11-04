@@ -1,6 +1,8 @@
 'use client';
 
 import * as motion from 'motion/react-client';
+import Link from 'next/link';
+import { ROUTES } from '../../utils/constants';
 
 const HeroSection = () => {
   return (
@@ -20,9 +22,9 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
         >
-          YOUR TRUSTED<br />
+          Reliable Nationwide<br />
           <span 
             className="font-bold"
             style={{
@@ -31,36 +33,44 @@ const HeroSection = () => {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}
-          >FLATBED</span><br />
-          TRUCKING COMPANY
+          >Freight Transportation</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-lg sm:text-xl md:text-2xl mb-8 max-w-3xl mx-auto font-light"
+          className="text-lg sm:text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-gray-200"
         >
-          Reliable freight transportation with professional drivers and modern fleet.
+          Professional drivers, modern fleet, and reliable service. 
           Your cargo, our commitment.
         </motion.p>
 
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => {
-            const element = document.getElementById('quote-form');
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          className="btn-primary text-white px-6 py-3 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+          transition={{ duration: 1, delay: 0.7 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          GET A QUOTE
-        </motion.button>
+          <Link href={ROUTES.quote}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary text-white px-8 py-4 rounded-lg text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              Get a Quote
+            </motion.button>
+          </Link>
+          <Link href={ROUTES.careers}>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200"
+            >
+              Drive With Us
+            </motion.button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

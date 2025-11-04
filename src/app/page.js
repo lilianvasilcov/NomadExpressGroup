@@ -1,11 +1,11 @@
 import Navbar from '../components/ui/Navbar';
 import HeroSection from '../components/sections/HeroSection';
-import StatsSection from '../components/sections/StatsSection';
+import QuickAboutSection from '../components/sections/QuickAboutSection';
 import ServicesSection from '../components/sections/ServicesSection';
-import TeamSection from '../components/sections/TeamSection';
-import DriverSection from '../components/sections/DriverSection';
-import QuoteFormSection from '../components/sections/QuoteFormSection';
-import ContactSection from '../components/sections/ContactSection';
+import FleetPreviewSection from '../components/sections/FleetPreviewSection';
+import StatsSection from '../components/sections/StatsSection';
+import TestimonialsSection from '../components/sections/TestimonialsSection';
+import CTASection from '../components/sections/CTASection';
 import Footer from '../components/ui/Footer';
 
 export default function Home() {
@@ -13,12 +13,12 @@ export default function Home() {
     <div className="min-h-screen bg-black">
       <Navbar />
       <HeroSection />
-      <StatsSection />
+      <QuickAboutSection />
       <ServicesSection />
-      <TeamSection />
-      <DriverSection />
-      <QuoteFormSection />
-      <ContactSection />
+      <FleetPreviewSection />
+      <StatsSection />
+      <TestimonialsSection />
+      <CTASection />
       <Footer />
     </div>
   );
