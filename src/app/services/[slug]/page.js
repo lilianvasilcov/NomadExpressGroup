@@ -1,6 +1,6 @@
 import { metadata } from './metadata';
 import ServiceDetailContent from './ServiceDetailContent';
-import { SERVICE_TYPES } from '../../../../utils/constants';
+import { SERVICE_TYPES } from '../../../utils/constants';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }) {

@@ -1,12 +1,12 @@
 'use client';
 
-import Navbar from '../../../../components/ui/Navbar';
-import Footer from '../../../../components/ui/Footer';
-import Container from '../../../../components/ui/Container';
-import Section from '../../../../components/ui/Section';
-import Button from '../../../../components/ui/Button';
+import Navbar from '../../../components/ui/Navbar';
+import Footer from '../../../components/ui/Footer';
+import Container from '../../../components/ui/Container';
+import Section from '../../../components/ui/Section';
+import Button from '../../../components/ui/Button';
 import Image from 'next/image';
-import { SERVICE_TYPES } from '../../../../utils/constants';
+import { SERVICE_TYPES } from '../../../utils/constants';
 
 export default function ServiceDetailContent({ service, details }) {
   return (
