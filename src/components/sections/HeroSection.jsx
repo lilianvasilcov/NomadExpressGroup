@@ -27,15 +27,26 @@ const HeroSection = () => {
       {/* Hero Content */}
       <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ 
+            duration: 0.8, 
+            delay: 0.1, 
+            ease: [0.16, 1, 0.3, 1] // Modern cubic-bezier easing
+          }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight will-change-transform"
         >
           Reliable Nationwide
           <br />
-          <span 
-            className="font-bold bg-clip-text text-transparent"
+          <motion.span 
+            className="font-bold bg-clip-text text-transparent inline-block"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ 
+              duration: 0.8, 
+              delay: 0.3,
+              ease: [0.16, 1, 0.3, 1]
+            }}
             style={{
               backgroundImage: `linear-gradient(135deg, #c3002e, #ff1744, #c3002e)`,
               WebkitBackgroundClip: 'text',
@@ -44,13 +55,17 @@ const HeroSection = () => {
             }}
           >
             Freight Transportation
-          </span>
+          </motion.span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+          transition={{ 
+            duration: 0.7, 
+            delay: 0.4, 
+            ease: [0.16, 1, 0.3, 1]
+          }}
           className="text-xl sm:text-2xl md:text-3xl mb-12 max-w-3xl mx-auto font-light text-gray-200 leading-relaxed will-change-transform"
         >
           Professional drivers, modern fleet, and reliable service.
@@ -59,29 +74,78 @@ const HeroSection = () => {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
           className="flex flex-col sm:flex-row gap-6 justify-center items-center will-change-transform"
         >
           <Link href={ROUTES.quote}>
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              variants={{
+                hidden: { opacity: 0, y: 40, scale: 0.9 },
+                visible: { 
+                  opacity: 1, 
+                  y: 0, 
+                  scale: 1,
+                  transition: {
+                    duration: 0.6,
+                    ease: [0.16, 1, 0.3, 1]
+                  }
+                }
+              }}
+              whileHover={{ 
+                y: -8,
+                scale: 1.02,
+                transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+              }}
               whileTap={{ scale: 0.98 }}
-              className="relative overflow-hidden bg-gradient-to-r from-[#c3002e] to-[#a40025] text-white px-10 py-5 rounded-xl text-lg font-semibold shadow-2xl transition-all duration-200 group will-change-transform"
+              className="relative overflow-hidden bg-gradient-to-r from-[#c3002e] to-[#a40025] text-white px-10 py-5 rounded-xl text-lg font-semibold shadow-2xl group will-change-transform"
               style={{ 
                 boxShadow: '0 10px 25px rgba(195, 0, 46, 0.3)',
               }}
             >
-              <span className="relative z-10">Get a Free Quote</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#ff1744] to-[#c3002e] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              <motion.span 
+                className="relative z-10"
+                initial={false}
+                whileHover={{ x: 2 }}
+              >
+                Get a Free Quote
+              </motion.span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#ff1744] to-[#c3002e]"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              />
             </motion.button>
           </Link>
           <Link href={ROUTES.careers}>
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              variants={{
+                hidden: { opacity: 0, y: 40, scale: 0.9 },
+                visible: { 
+                  opacity: 1, 
+                  y: 0, 
+                  scale: 1,
+                  transition: {
+                    duration: 0.6,
+                    ease: [0.16, 1, 0.3, 1]
+                  }
+                }
+              }}
+              whileHover={{ 
+                y: -8,
+                scale: 1.02,
+                transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+              }}
               whileTap={{ scale: 0.98 }}
-              className="relative overflow-hidden backdrop-blur-sm bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 px-10 py-5 rounded-xl text-lg font-semibold transition-all duration-200 will-change-transform"
+              className="relative overflow-hidden backdrop-blur-sm bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 px-10 py-5 rounded-xl text-lg font-semibold will-change-transform"
             >
               Drive With Us
             </motion.button>

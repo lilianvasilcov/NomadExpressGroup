@@ -17,17 +17,24 @@ const QuickAboutSection = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            transition={{ 
+              duration: 0.7, 
+              ease: [0.16, 1, 0.3, 1],
+              staggerChildren: 0.1
+            }}
             viewport={{ once: true, margin: '-100px' }}
             className="space-y-6 will-change-transform"
           >
             {/* Section Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              initial={{ opacity: 0, y: 15, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.5,
+                ease: [0.16, 1, 0.3, 1]
+              }}
               viewport={{ once: true }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium mb-4"
             >
@@ -55,26 +62,52 @@ const QuickAboutSection = () => {
             </div>
 
             {/* Feature List */}
-            <div className="grid grid-cols-2 gap-4 my-8">
+            <motion.div 
+              className="grid grid-cols-2 gap-4 my-8"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px' }}
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.08,
+                    delayChildren: 0.2
+                  }
+                }
+              }}
+            >
               {[
-                { icon: '🚛', text: '150+ Trucks' },
-                { icon: '📍', text: '48 States' },
-                { icon: '⭐', text: 'Top Rated' },
-                { icon: '⏰', text: '24/7 Support' }
+                { icon: '🚚', text: '50+ Trucks' },
+                { icon: '📌', text: '48 States' },
+                { icon: '⭐️', text: 'Top Rated' },
+                { icon: '🕣', text: '24/7 Support' }
               ].map((feature, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  viewport={{ once: true, margin: '-50px' }}
+                  variants={{
+                    hidden: { opacity: 0, y: 15, scale: 0.9 },
+                    visible: { 
+                      opacity: 1, 
+                      y: 0, 
+                      scale: 1,
+                      transition: {
+                        duration: 0.4,
+                        ease: [0.16, 1, 0.3, 1]
+                      }
+                    }
+                  }}
+                  whileHover={{ 
+                    y: -3,
+                    scale: 1.02,
+                    transition: { duration: 0.2 }
+                  }}
                   className="flex items-center gap-3 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all will-change-transform"
                 >
                   <span className="text-2xl">{feature.icon}</span>
                   <span className="text-white font-medium">{feature.text}</span>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             <Link href={ROUTES.about}>
               <motion.button
@@ -93,9 +126,12 @@ const QuickAboutSection = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            initial={{ opacity: 0, x: 40, scale: 0.95 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ 
+              duration: 0.7, 
+              ease: [0.16, 1, 0.3, 1]
+            }}
             viewport={{ once: true, margin: '-100px' }}
             className="relative group will-change-transform"
           >

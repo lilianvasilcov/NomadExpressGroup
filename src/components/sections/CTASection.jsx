@@ -30,17 +30,24 @@ const CTASection = () => {
       
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center"
+          transition={{ 
+            duration: 0.7, 
+            ease: [0.16, 1, 0.3, 1],
+            staggerChildren: 0.15
+          }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="text-center will-change-transform"
         >
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ 
+              duration: 0.5,
+              ease: [0.16, 1, 0.3, 1]
+            }}
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-6"
           >
@@ -60,35 +67,86 @@ const CTASection = () => {
             Nomad Express Group apart.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+          >
             <Link href={ROUTES.quote}>
               <motion.button
-                whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(195, 0, 46, 0.4)' }}
-                whileTap={{ scale: 0.95 }}
-                className="group relative overflow-hidden bg-gradient-to-r from-[#c3002e] to-[#a40025] text-white px-10 py-5 rounded-xl text-lg font-semibold shadow-2xl transition-all duration-300"
+                variants={{
+                  hidden: { opacity: 0, y: 40, scale: 0.9 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    transition: {
+                      duration: 0.6,
+                      ease: [0.16, 1, 0.3, 1]
+                    }
+                  }
+                }}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  boxShadow: '0 20px 40px rgba(195, 0, 46, 0.4)',
+                  transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+                }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative overflow-hidden bg-gradient-to-r from-[#c3002e] to-[#a40025] text-white px-10 py-5 rounded-xl text-lg font-semibold shadow-2xl will-change-transform"
               >
-                <span className="relative z-10 flex items-center gap-2">
+                <motion.span 
+                  className="relative z-10 flex items-center gap-2"
+                  whileHover={{ x: 3 }}
+                >
                   Request a Free Quote
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                </span>
+                </motion.span>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-[#ff1744] to-[#c3002e] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-r from-[#ff1744] to-[#c3002e]"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 />
               </motion.button>
             </Link>
             
             <Link href={ROUTES.careers}>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative overflow-hidden backdrop-blur-md bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 px-10 py-5 rounded-xl text-lg font-semibold transition-all duration-300"
+                variants={{
+                  hidden: { opacity: 0, y: 40, scale: 0.9 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    transition: {
+                      duration: 0.6,
+                      ease: [0.16, 1, 0.3, 1]
+                    }
+                  }
+                }}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+                }}
+                whileTap={{ scale: 0.98 }}
+                className="relative overflow-hidden backdrop-blur-md bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 px-10 py-5 rounded-xl text-lg font-semibold will-change-transform"
               >
                 Drive With Us
               </motion.button>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Trust Badges */}
           <motion.div

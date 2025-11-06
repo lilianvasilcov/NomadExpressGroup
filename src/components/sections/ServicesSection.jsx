@@ -18,16 +18,23 @@ const ServicesSection = () => {
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          transition={{ 
+            duration: 0.7, 
+            ease: [0.16, 1, 0.3, 1],
+            staggerChildren: 0.1
+          }}
           viewport={{ once: true, margin: '-100px' }}
           className="text-center mb-16 will-change-transform"
         >
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ 
+              duration: 0.5,
+              ease: [0.16, 1, 0.3, 1]
+            }}
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium mb-6"
           >
@@ -44,15 +51,39 @@ const ServicesSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+        >
           {featuredServices.map((service, index) => (
             <Link key={index} href={`${ROUTES.services}/${service.slug}`}>
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.05, ease: 'easeOut' }}
-                viewport={{ once: true, margin: '-50px' }}
-                whileHover={{ y: -5 }}
+                variants={{
+                  hidden: { opacity: 0, y: 40, scale: 0.9 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    transition: {
+                      duration: 0.6,
+                      ease: [0.16, 1, 0.3, 1]
+                    }
+                  }
+                }}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+                }}
                 className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer will-change-transform"
               >
                 {/* Background Image */}
@@ -106,7 +137,7 @@ const ServicesSection = () => {
               </motion.div>
             </Link>
           ))}
-        </div>
+        </motion.div>
 
         <div className="text-center">
           <Link href={ROUTES.services}>
