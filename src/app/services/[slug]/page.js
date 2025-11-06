@@ -4,7 +4,8 @@ import { SERVICE_TYPES } from '../../../utils/constants';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }) {
-  const service = SERVICE_TYPES.find(s => s.slug === params.slug);
+  const { slug } = await params;
+  const service = SERVICE_TYPES.find(s => s.slug === slug);
   if (!service) return { title: 'Service Not Found' };
   
   return {
@@ -13,8 +14,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function ServiceDetailPage({ params }) {
-  const service = SERVICE_TYPES.find(s => s.slug === params.slug);
+export default async function ServiceDetailPage({ params }) {
+  const { slug } = await params;
+  const service = SERVICE_TYPES.find(s => s.slug === slug);
   
   if (!service) {
     notFound();
@@ -81,21 +83,21 @@ export default function ServiceDetailPage({ params }) {
       equipment: '48ft-53ft flatbeds and step decks',
       who: 'Construction companies, manufacturers, machinery dealers, steel fabricators'
     },
-    'warehousing': {
-      description: 'Complete 3PL logistics solutions including warehousing, distribution, inventory management, and fulfillment services.',
+    'heavy-haul': {
+      description: 'Specialized heavy haul transportation for oversized, overweight, and complex freight that requires specialized equipment and expertise. We handle the most challenging loads with precision and care.',
       benefits: [
-        'Strategic warehouse locations',
-        'Inventory management',
-        'Order fulfillment',
-        'Pick and pack services',
-        'Integrated transportation'
+        'Expert handling of oversized loads',
+        'Permit acquisition and routing assistance',
+        'Specialized equipment and trailers',
+        'Experienced heavy haul drivers',
+        'Comprehensive insurance coverage'
       ],
-      equipment: 'Modern warehouse facilities with climate control',
-      who: 'E-commerce businesses, manufacturers needing distribution, retailers'
+      equipment: 'Specialized heavy haul trailers, lowboys, extendable flatbeds, and multi-axle configurations',
+      who: 'Construction companies, manufacturers, mining operations, energy sector, infrastructure projects'
     }
   };
 
-  const details = serviceDetails[params.slug] || serviceDetails['flatbed'];
+  const details = serviceDetails[slug] || serviceDetails['flatbed'];
 
   return <ServiceDetailContent service={service} details={details} />;
 }

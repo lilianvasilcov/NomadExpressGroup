@@ -79,10 +79,10 @@ export const SERVICE_TYPES = [
     icon: '/flatbed.jpg'
   },
   {
-    slug: 'warehousing',
-    title: 'Warehousing & Distribution',
-    description: 'Complete 3PL logistics solutions',
-    icon: '/logistics.jpg'
+    slug: 'heavy-haul',
+    title: 'Heavy Haul Loads',
+    description: 'Specialized transportation for oversized and heavy freight',
+    icon: '/heavyhaul.jpg'
   }
 ];
 

@@ -1,11 +1,11 @@
 'use client';
 
+import { motion } from 'motion/react';
 import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
 import PageHeader from '../../components/ui/PageHeader';
 import Container from '../../components/ui/Container';
 import Section from '../../components/ui/Section';
-import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Image from 'next/image';
 import { FLEET_TYPES } from '../../utils/constants';
@@ -29,7 +29,7 @@ export default function FleetContent() {
           />
           <div className="max-w-3xl mx-auto text-center text-gray-300 text-lg">
             <p className="mb-4">
-              Our fleet consists of over 150 well-maintained trucks and trailers, equipped with the latest 
+              Our fleet consists of over 50 well-maintained trucks and trailers, equipped with the latest 
               technology for safety, tracking, and efficiency.
             </p>
             <p>
@@ -51,38 +51,94 @@ export default function FleetContent() {
         {/* Fleet Types */}
         <section className="py-24 relative">
           <Container className="relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px' }}
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.1
+                  }
+                }
+              }}
+            >
               {FLEET_TYPES.map((equipment, index) => (
-                <Card key={index} className="bg-black/40 border border-white/10 overflow-hidden">
-                  <div className="relative h-64">
-                    <Image 
-                      src={equipment.image} 
-                      alt={equipment.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover"
-                      loading={index < 3 ? "eager" : "lazy"}
-                      quality={85}
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-3">{equipment.name}</h3>
-                    <p className="text-gray-300 mb-4">{equipment.description}</p>
-                    <div className="space-y-2">
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 40, scale: 0.9 },
+                    visible: { 
+                      opacity: 1, 
+                      y: 0, 
+                      scale: 1,
+                      transition: {
+                        duration: 0.6,
+                        ease: [0.16, 1, 0.3, 1]
+                      }
+                    }
+                  }}
+                  whileHover={{ 
+                    y: -8,
+                    scale: 1.02,
+                    transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
+                  }}
+                  className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer will-change-transform"
+                >
+                  {/* Background Image */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105 will-change-transform"
+                    style={{ backgroundImage: `url(${equipment.image})` }}
+                  ></div>
+                  
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/50 group-hover:from-black/85 group-hover:via-black/60 group-hover:to-black/40 transition-all duration-300"></div>
+                  
+                  {/* Red Accent Border */}
+                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-red-500/50 rounded-2xl transition-all duration-300 pointer-events-none"></div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10 h-full flex flex-col justify-end p-8">
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: 0.1 + index * 0.05 }}
+                      viewport={{ once: true }}
+                      className="mb-4"
+                    >
+                      <div className="w-12 h-12 rounded-lg bg-red-500/20 backdrop-blur-sm flex items-center justify-center mb-4 group-hover:bg-red-500/30 transition-colors">
+                        <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
+                    </motion.div>
+                    
+                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">
+                      {equipment.name}
+                    </h3>
+                    <p className="text-gray-300 mb-4 leading-relaxed">
+                      {equipment.description}
+                    </p>
+                    
+                    <div className="space-y-2 mb-4">
                       <h4 className="text-sm font-semibold text-red-400 mb-2">Specifications:</h4>
                       <ul className="space-y-1">
-                        {equipment.specs.map((spec, idx) => (
-                          <li key={idx} className="text-gray-400 text-sm flex items-center">
-                            <span className="w-1.5 h-1.5 rounded-full bg-red-500 mr-2"></span>
-                            {spec}
+                        {equipment.specs.slice(0, 3).map((spec, idx) => (
+                          <li key={idx} className="text-gray-300 text-sm flex items-center">
+                            <span className="w-1.5 h-1.5 rounded-full bg-red-500 mr-2 flex-shrink-0"></span>
+                            <span>{spec}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
-                </Card>
+
+                  {/* Simplified shine effect for performance */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/5 to-transparent will-change-transform pointer-events-none"></div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </Container>
         </section>
 
