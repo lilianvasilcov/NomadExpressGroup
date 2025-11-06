@@ -60,7 +60,7 @@ const Footer = () => {
           
           <div>
             <h3 className="text-white font-semibold mb-4">Quick Actions</h3>
-            <div className="space-y-3">
+            <div className="space-x-4 flex ">
               <Link href={ROUTES.quote}>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
