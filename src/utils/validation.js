@@ -224,3 +224,116 @@ export const validateQuoteForm = (formData) => {
   };
 };
 
+/**
+ * Validates and sanitizes driver application form data
+ * @param {Object} formData - Raw form data
+ * @returns {Object} - { isValid: boolean, errors: Array<string>, sanitizedData: Object }
+ */
+export const validateApplicationForm = (formData) => {
+  const errors = [];
+  const sanitizedData = {};
+  
+  // Required fields
+  const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'city', 'state', 'cdlClass', 'yearsExperience'];
+  const requiredValidation = validateRequiredFields(formData, requiredFields);
+  
+  if (!requiredValidation.isValid) {
+    errors.push(`Missing required fields: ${requiredValidation.missingFields.join(', ')}`);
+  }
+  
+  // Sanitize and validate each field
+  if (formData.firstName) {
+    sanitizedData.firstName = sanitizeInput(formData.firstName);
+    if (sanitizedData.firstName.length < 2) {
+      errors.push('First name must be at least 2 characters long');
+    }
+    if (sanitizedData.firstName.length > 50) {
+      errors.push('First name must be less than 50 characters');
+    }
+  }
+  
+  if (formData.lastName) {
+    sanitizedData.lastName = sanitizeInput(formData.lastName);
+    if (sanitizedData.lastName.length < 2) {
+      errors.push('Last name must be at least 2 characters long');
+    }
+    if (sanitizedData.lastName.length > 50) {
+      errors.push('Last name must be less than 50 characters');
+    }
+  }
+  
+  if (formData.email) {
+    sanitizedData.email = sanitizeInput(formData.email).toLowerCase();
+    if (!isValidEmail(sanitizedData.email)) {
+      errors.push('Please enter a valid email address');
+    }
+  }
+  
+  if (formData.phone) {
+    sanitizedData.phone = sanitizeInput(formData.phone);
+    if (!isValidPhone(sanitizedData.phone)) {
+      errors.push('Please enter a valid phone number');
+    }
+  }
+  
+  if (formData.city) {
+    sanitizedData.city = sanitizeInput(formData.city);
+    if (sanitizedData.city.length < 2) {
+      errors.push('City must be at least 2 characters long');
+    }
+    if (sanitizedData.city.length > 100) {
+      errors.push('City must be less than 100 characters');
+    }
+  }
+  
+  if (formData.state) {
+    sanitizedData.state = sanitizeInput(formData.state);
+    if (sanitizedData.state.length < 2) {
+      errors.push('State must be at least 2 characters long');
+    }
+    if (sanitizedData.state.length > 50) {
+      errors.push('State must be less than 50 characters');
+    }
+  }
+  
+  if (formData.cdlClass) {
+    sanitizedData.cdlClass = sanitizeInput(formData.cdlClass);
+    const validCdlClasses = ['Class A', 'Class B', 'Class C'];
+    if (!validCdlClasses.includes(sanitizedData.cdlClass)) {
+      errors.push('Please select a valid CDL class');
+    }
+  }
+  
+  if (formData.yearsExperience) {
+    sanitizedData.yearsExperience = sanitizeInput(formData.yearsExperience);
+    const years = parseInt(sanitizedData.yearsExperience, 10);
+    if (isNaN(years) || years < 0 || years > 50) {
+      errors.push('Years of experience must be a valid number between 0 and 50');
+    }
+  }
+  
+  // Endorsements (optional array)
+  if (formData.endorsements && Array.isArray(formData.endorsements)) {
+    sanitizedData.endorsements = formData.endorsements.map(endorsement => sanitizeInput(endorsement));
+  } else {
+    sanitizedData.endorsements = [];
+  }
+  
+  // TWIC card (optional boolean)
+  sanitizedData.hasTWIC = formData.hasTWIC === true || formData.hasTWIC === 'true';
+  
+  // Message (optional)
+  if (formData.message) {
+    sanitizedData.message = sanitizeInput(formData.message);
+    if (sanitizedData.message.length > 2000) {
+      errors.push('Message must be less than 2000 characters');
+    }
+  }
+  
+  return {
+    isValid: errors.length === 0,
+    errors,
+    sanitizedData
+  };
+};
+
