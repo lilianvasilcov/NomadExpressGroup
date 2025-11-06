@@ -55,7 +55,7 @@ const QuickAboutSection = () => {
                 with both drivers and customers.
               </p>
               <p>
-                With a fleet of over <span className="text-red-500 font-semibold">150 trucks</span> serving clients across all 
+                With a fleet of over <span className="text-red-500 font-semibold">50 trucks</span> serving clients across all 
                 <span className="text-red-500 font-semibold"> 48 contiguous states</span>, we're recognized as 
                 one of the top for-hire carriers in the industry.
               </p>
@@ -166,7 +166,7 @@ const QuickAboutSection = () => {
                   </div>
                   <div>
                     <p className="text-white font-bold text-lg">Industry Leader</p>
-                    <p className="text-gray-300 text-sm">Top-rated carrier since 2014</p>
+                    <p className="text-gray-300 text-sm">Top-rated carrier since 2018</p>
                   </div>
                 </div>
               </motion.div>
