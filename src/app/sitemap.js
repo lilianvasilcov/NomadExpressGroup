@@ -11,7 +11,6 @@ export default function sitemap() {
     { path: '/services/flatbed', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/services/warehousing', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/fleet', priority: 0.8, changeFrequency: 'monthly' },
-    { path: '/coverage', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/careers', priority: 0.9, changeFrequency: 'weekly' },
     { path: '/apply', priority: 0.8, changeFrequency: 'monthly' },
     { path: '/gallery', priority: 0.7, changeFrequency: 'monthly' },

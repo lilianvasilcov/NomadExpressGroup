@@ -27,7 +27,6 @@ export const ROUTES = {
   about: '/about',
   services: '/services',
   fleet: '/fleet',
-  coverage: '/coverage',
   careers: '/careers',
   apply: '/apply',
   gallery: '/gallery',
@@ -43,7 +42,6 @@ export const NAVIGATION_ITEMS = [
   { name: 'About', href: ROUTES.about },
   { name: 'Services', href: ROUTES.services },
   { name: 'Fleet', href: ROUTES.fleet },
-  { name: 'Coverage', href: ROUTES.coverage },
   { name: 'Careers', href: ROUTES.careers },
   { name: 'Gallery', href: ROUTES.gallery },
   { name: 'Contact', href: ROUTES.contact }
