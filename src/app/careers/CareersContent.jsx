@@ -39,7 +39,6 @@ export default function CareersContent() {
 
   const requirements = [
     'Valid CDL Class A license',
-    'Minimum 2 years of experience',
     'Clean driving record',
     'Pass background check',
     'Pass drug screening',
