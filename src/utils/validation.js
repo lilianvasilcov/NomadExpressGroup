@@ -233,8 +233,8 @@ export const validateApplicationForm = (formData) => {
   const errors = [];
   const sanitizedData = {};
   
-  // Required fields
-  const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'city', 'state', 'cdlClass', 'yearsExperience'];
+  // Required fields (cdlClass is optional - drivers without CDL can apply)
+  const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'city', 'state', 'yearsExperience'];
   const requiredValidation = validateRequiredFields(formData, requiredFields);
   
   if (!requiredValidation.isValid) {
@@ -296,12 +296,16 @@ export const validateApplicationForm = (formData) => {
     }
   }
   
+  // CDL Class is optional - drivers without CDL can apply
   if (formData.cdlClass) {
     sanitizedData.cdlClass = sanitizeInput(formData.cdlClass);
-    const validCdlClasses = ['Class A', 'Class B', 'Class C'];
+    const validCdlClasses = ['Class A', 'Class B', 'Class C', 'Non-CDL'];
     if (!validCdlClasses.includes(sanitizedData.cdlClass)) {
-      errors.push('Please select a valid CDL class');
+      errors.push('Please select a valid CDL class or Non-CDL');
     }
+  } else {
+    // If no CDL class is selected, default to "Non-CDL"
+    sanitizedData.cdlClass = 'Non-CDL';
   }
   
   if (formData.yearsExperience) {

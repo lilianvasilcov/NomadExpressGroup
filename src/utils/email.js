@@ -375,7 +375,7 @@ export const sendApplicationFormEmail = async (formData) => {
   const safePhone = escapeHtml(phone);
   const safeCity = escapeHtml(city);
   const safeState = escapeHtml(state);
-  const safeCdlClass = escapeHtml(cdlClass);
+  const safeCdlClass = cdlClass ? escapeHtml(cdlClass) : 'Non-CDL';
   const safeYearsExperience = escapeHtml(yearsExperience);
   const safeEndorsements = endorsements && endorsements.length > 0 ? endorsements.map(e => escapeHtml(e)).join(', ') : 'None';
   const safeHasTWIC = hasTWIC ? 'Yes' : 'No';

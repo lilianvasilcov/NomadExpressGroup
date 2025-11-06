@@ -18,7 +18,7 @@ export default function ApplyContent() {
     email: "",
     city: "",
     state: "",
-    cdlClass: "Class A",
+    cdlClass: "",
     yearsExperience: "",
     endorsements: [],
     hasTWIC: false,
@@ -79,7 +79,7 @@ export default function ApplyContent() {
             email: "",
             city: "",
             state: "",
-            cdlClass: "Class A",
+            cdlClass: "",
             yearsExperience: "",
             endorsements: [],
             hasTWIC: false,
@@ -250,15 +250,17 @@ export default function ApplyContent() {
                           />
                         </div>
                         <div>
-                          <label className="block text-white font-medium mb-2">CDL Class *</label>
+                          <label className="block text-white font-medium mb-2">CDL Class</label>
                           <select
                             name="cdlClass"
                             value={formData.cdlClass}
                             onChange={handleChange}
                             className="w-full px-4 py-3 bg-black/60 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                           >
+                            <option value="">Select CDL Class (Optional)</option>
                             <option value="Class A">CDL Class A</option>
                             <option value="Class B">CDL Class B</option>
+                            <option value="Class C">CDL Class C</option>
                             <option value="Non-CDL">Non-CDL</option>
                           </select>
                         </div>
