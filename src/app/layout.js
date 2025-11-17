@@ -21,6 +21,13 @@ export const metadata = {
   alternates: {
     canonical: '/' 
   },
+  icons: {
+    icon: '/favicon.ico',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-touch-icon-precomposed.png', sizes: '180x180', type: 'image/png' }
+    ]
+  },
   openGraph: {
     title: 'Nomad Express Group - Your Trusted Flatbed Trucking Company',
     description: 'Professional flatbed trucking services with reliable delivery, experienced drivers, and modern fleet. Get a quote today!',

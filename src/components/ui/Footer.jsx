@@ -84,9 +84,22 @@ const Footer = () => {
         
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">
-              © {currentYear} Nomad Express Group. All rights reserved.
-            </p>
+            <div className="flex flex-col gap-2">
+              <p className="text-gray-400 text-sm">
+                © {currentYear} Nomad Express Group. All rights reserved.
+              </p>
+              <p className="text-gray-500 text-xs">
+                Website developed by{' '}
+                <a 
+                  href="https://zcodesite.vercel.app" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Zcode
+                </a>
+              </p>
+            </div>
             <div className="flex gap-6 text-gray-400 text-sm">
               <Link href={ROUTES.privacy} className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href={ROUTES.terms} className="hover:text-white transition-colors">Terms & Conditions</Link>
