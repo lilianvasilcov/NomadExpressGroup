@@ -8,9 +8,59 @@ export async function generateMetadata({ params }) {
   const service = SERVICE_TYPES.find(s => s.slug === slug);
   if (!service) return { title: 'Service Not Found' };
   
+  // Enhanced SEO metadata for each service type
+  const serviceMetadata = {
+    'full-truckload': {
+      title: `Full Truckload (FTL) Services - Nomad Express Group | Professional Trucking Company`,
+      description: `Full Truckload (FTL) trucking services from Nomad Express Group. Complete trailer loads for faster, direct delivery across all 48 states. Professional trucking company with reliable FTL freight transportation.`,
+      keywords: ['full truckload', 'FTL trucking', 'FTL services', 'truckload shipping', 'full truckload freight', 'Nomad Express FTL']
+    },
+    'ltl': {
+      title: `Less Than Truckload (LTL) Services - Nomad Express Group | Professional Trucking Company`,
+      description: `Less Than Truckload (LTL) shipping from Nomad Express Group. Cost-effective freight transportation for smaller shipments. Professional LTL trucking services across all 48 states.`,
+      keywords: ['LTL trucking', 'less than truckload', 'LTL shipping', 'LTL freight', 'partial truckload', 'Nomad Express LTL']
+    },
+    'expedited': {
+      title: `Expedited Trucking Services - Nomad Express Group | Fast Freight Delivery`,
+      description: `Expedited trucking services from Nomad Express Group. Time-sensitive freight delivery with guaranteed delivery times. Fast, reliable expedited shipping across all 48 states.`,
+      keywords: ['expedited trucking', 'fast freight', 'expedited shipping', 'time-sensitive freight', 'hotshot trucking', 'Nomad Express expedited']
+    },
+    'refrigerated': {
+      title: `Refrigerated Trucking Services - Nomad Express Group | Temperature-Controlled Freight`,
+      description: `Refrigerated trucking services from Nomad Express Group. Temperature-controlled transportation for perishable goods, food products, and pharmaceuticals. Professional reefer trucking across all 48 states.`,
+      keywords: ['refrigerated trucking', 'reefer trucking', 'temperature controlled freight', 'cold chain logistics', 'refrigerated shipping', 'Nomad Express refrigerated']
+    },
+    'flatbed': {
+      title: `Flatbed Trucking Services - Nomad Express Group | Professional Flatbed Freight`,
+      description: `Flatbed trucking services from Nomad Express Group. Specialized flatbed and step deck transportation for oversized cargo, machinery, steel, and building materials. Professional flatbed freight across all 48 states.`,
+      keywords: ['flatbed trucking', 'flatbed freight', 'step deck trucking', 'flatbed shipping', 'oversized freight', 'Nomad Express flatbed']
+    },
+    'heavy-haul': {
+      title: `Heavy Haul Trucking Services - Nomad Express Group | Oversized & Overweight Freight`,
+      description: `Heavy haul trucking services from Nomad Express Group. Specialized transportation for oversized, overweight, and complex freight. Professional heavy haul trucking with permit assistance across all 48 states.`,
+      keywords: ['heavy haul trucking', 'oversized freight', 'overweight freight', 'specialized trucking', 'heavy haul services', 'Nomad Express heavy haul']
+    }
+  };
+  
+  const metadata = serviceMetadata[slug] || {
+    title: `${service.title} - Nomad Express Group | Professional Trucking Company`,
+    description: `${service.description} Professional trucking services from Nomad Express Group across all 48 states.`,
+    keywords: [service.title.toLowerCase(), 'trucking services', 'Nomad Express']
+  };
+  
   return {
-    title: service.title,
-    description: service.description,
+    title: metadata.title,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    openGraph: {
+      title: metadata.title,
+      description: metadata.description,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: metadata.title,
+      description: metadata.description,
+    }
   };
 }
 

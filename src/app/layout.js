@@ -14,10 +14,30 @@ const geistMono = Geist_Mono({
 export const metadata = {
   metadataBase: new URL('https://www.nomadexpressgroup.com'),
   title: {
-    default: 'Nomad Express Group - Your Trusted Flatbed Trucking Company',
+    default: 'Nomad Express Group - Professional Trucking Company | Flatbed & Freight Services',
     template: '%s | Nomad Express Group'
   },
-  description: 'Professional flatbed trucking services with reliable delivery, experienced drivers, and modern fleet. Get a quote today!',
+  description: 'Nomad Express Group is a leading trucking company providing professional freight transportation services nationwide. Specializing in flatbed, refrigerated, and heavy haul trucking across all 48 states. Get your free quote today!',
+  keywords: [
+    'Nomad Express',
+    'Nomad Express Group',
+    'trucking company',
+    'freight transportation',
+    'flatbed trucking',
+    'trucking services',
+    'freight company',
+    'logistics company',
+    'trucking carrier',
+    'freight carrier',
+    'flatbed freight',
+    'refrigerated trucking',
+    'heavy haul trucking',
+    'nationwide trucking',
+    'professional trucking',
+    'trucking services USA',
+    'freight shipping',
+    'trucking logistics'
+  ],
   alternates: {
     canonical: '/' 
   },
@@ -29,22 +49,33 @@ export const metadata = {
     ]
   },
   openGraph: {
-    title: 'Nomad Express Group - Your Trusted Flatbed Trucking Company',
-    description: 'Professional flatbed trucking services with reliable delivery, experienced drivers, and modern fleet. Get a quote today!',
+    title: 'Nomad Express Group - Professional Trucking Company | Flatbed & Freight Services',
+    description: 'Nomad Express Group is a leading trucking company providing professional freight transportation services nationwide. Specializing in flatbed, refrigerated, and heavy haul trucking across all 48 states.',
     url: 'https://www.nomadexpressgroup.com',
     siteName: 'Nomad Express Group',
     images: [
-      { url: '/logo.png', width: 1200, height: 630, alt: 'Nomad Express Group' }
+      { url: '/logo.png', width: 1200, height: 630, alt: 'Nomad Express Group - Professional Trucking Company' }
     ],
     locale: 'en_US',
     type: 'website'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nomad Express Group - Your Trusted Flatbed Trucking Company',
-    description: 'Professional flatbed trucking services with reliable delivery, experienced drivers, and modern fleet. Get a quote today!',
+    title: 'Nomad Express Group - Professional Trucking Company | Flatbed & Freight Services',
+    description: 'Nomad Express Group is a leading trucking company providing professional freight transportation services nationwide. Specializing in flatbed, refrigerated, and heavy haul trucking.',
     images: ['/logo.png']
-  }
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -56,10 +87,31 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'Organization',
+              '@type': 'TruckingCompany',
+              '@id': 'https://www.nomadexpressgroup.com',
               name: 'Nomad Express Group',
+              alternateName: 'Nomad Express',
               url: 'https://www.nomadexpressgroup.com',
               logo: 'https://www.nomadexpressgroup.com/logo.png',
+              description: 'Nomad Express Group is a leading trucking company providing professional freight transportation services nationwide. Specializing in flatbed, refrigerated, and heavy haul trucking across all 48 states.',
+              foundingDate: '2018',
+              numberOfEmployees: {
+                '@type': 'QuantitativeValue',
+                value: '50+'
+              },
+              areaServed: {
+                '@type': 'Country',
+                name: 'United States'
+              },
+              serviceType: [
+                'Flatbed Trucking',
+                'Refrigerated Transportation',
+                'Heavy Haul Services',
+                'Full Truckload (FTL)',
+                'Less Than Truckload (LTL)',
+                'Expedited Freight',
+                'Logistics Solutions'
+              ],
               sameAs: [
                 'https://www.facebook.com/',
                 'https://www.linkedin.com/'
@@ -69,9 +121,19 @@ export default function RootLayout({ children }) {
                   '@type': 'ContactPoint',
                   telephone: '+1-555-123-4567',
                   contactType: 'customer service',
-                  areaServed: 'US'
+                  areaServed: 'US',
+                  availableLanguage: 'English'
                 }
-              ]
+              ],
+              address: {
+                '@type': 'PostalAddress',
+                addressCountry: 'US'
+              },
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: '4.8',
+                reviewCount: '150'
+              }
             })
           }}
         />

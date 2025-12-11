@@ -1,9 +1,17 @@
 export const metadata = {
-  title: 'Our Fleet',
-  description: 'Explore our modern fleet of 150+ trucks and trailers. We maintain dry vans, reefers, flatbeds, step decks, and specialized equipment.',
+  title: 'Trucking Fleet - Modern Trucks & Trailers | Nomad Express Group',
+  description: 'Explore Nomad Express Group\'s modern trucking fleet of 50+ trucks and trailers. Professional flatbed, refrigerated, and heavy haul equipment serving all 48 states.',
+  keywords: [
+    'trucking fleet',
+    'truck fleet',
+    'freight company fleet',
+    'trucking equipment',
+    'trucking company vehicles',
+    'Nomad Express fleet'
+  ],
   openGraph: {
-    title: 'Our Fleet | Nomad Express Group',
-    description: 'Modern equipment, expert maintenance, and reliable service for all your freight needs.',
+    title: 'Trucking Fleet - Modern Trucks & Trailers | Nomad Express Group',
+    description: 'Explore Nomad Express Group\'s modern trucking fleet of professional flatbed, refrigerated, and heavy haul equipment.',
   }
 };
 
