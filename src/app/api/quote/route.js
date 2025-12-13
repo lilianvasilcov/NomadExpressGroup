@@ -1,17 +1,55 @@
 import { NextResponse } from 'next/server';
 import { sendQuoteFormEmail } from '../../../utils/email';
 import { validateQuoteForm } from '../../../utils/validation';
-import { checkRateLimit, getClientIP } from '../../../utils/rateLimit';
+import { checkRateLimit, getClientIP, createRateLimitKey } from '../../../utils/rateLimit';
+import { 
+  validateRequestSize, 
+  safeJsonParse, 
+  withTimeout, 
+  validateMethod,
+  isSameOrigin,
+  validateHeaders
+} from '../../../utils/security';
 
 /**
  * POST /api/quote
  * Handles quote form submissions with validation and email sending
+ * Enhanced with comprehensive security measures
  */
 export async function POST(request) {
   try {
-    // Rate limiting: 5 requests per 15 minutes per IP
+    // 1. Validate HTTP method
+    if (!validateMethod(request, ['POST'])) {
+      return NextResponse.json(
+        { success: false, message: 'Method not allowed' },
+        { status: 405 }
+      );
+    }
+    
+    // 2. Validate request headers
+    const headerValidation = validateHeaders(request);
+    if (!headerValidation.valid) {
+      console.warn('Suspicious headers detected:', headerValidation.suspicious);
+    }
+    
+    // 3. Basic CSRF protection
+    if (!isSameOrigin(request)) {
+      console.warn('Cross-origin request detected from:', request.headers.get('origin'));
+    }
+    
+    // 4. Validate request size
+    const sizeValidation = await validateRequestSize(request);
+    if (!sizeValidation.valid) {
+      return NextResponse.json(
+        { success: false, message: sizeValidation.error },
+        { status: 413 }
+      );
+    }
+    
+    // 5. Rate limiting: 5 requests per 15 minutes per IP
     const clientIP = getClientIP(request);
-    const rateLimit = checkRateLimit(clientIP, 5, 15 * 60 * 1000);
+    const rateLimitKey = createRateLimitKey(request);
+    const rateLimit = checkRateLimit(rateLimitKey, 5, 15 * 60 * 1000);
     
     if (!rateLimit.allowed) {
       return NextResponse.json(
@@ -31,11 +69,32 @@ export async function POST(request) {
       );
     }
     
-    // Parse request body
+    // 6. Parse request body with timeout and size protection
+    let bodyText;
     let body;
+    
     try {
-      body = await request.json();
+      bodyText = await withTimeout(
+        request.text(),
+        10000,
+        'Request body read timeout'
+      );
+      
+      const parseResult = safeJsonParse(bodyText);
+      if (parseResult.error) {
+        return NextResponse.json(
+          { success: false, message: parseResult.error },
+          { status: 400 }
+        );
+      }
+      body = parseResult.data;
     } catch (parseError) {
+      if (parseError.message.includes('timeout')) {
+        return NextResponse.json(
+          { success: false, message: 'Request timeout. Please try again.' },
+          { status: 408 }
+        );
+      }
       return NextResponse.json(
         { success: false, message: 'Invalid request format' },
         { status: 400 }
@@ -56,11 +115,25 @@ export async function POST(request) {
       );
     }
     
-    // Send email with sanitized data
+    // 7. Send email with sanitized data (with timeout)
     let emailResult;
     try {
-      emailResult = await sendQuoteFormEmail(validation.sanitizedData);
+      emailResult = await withTimeout(
+        sendQuoteFormEmail(validation.sanitizedData),
+        25000,
+        'Email sending timeout'
+      );
     } catch (emailError) {
+      if (emailError.message.includes('timeout')) {
+        console.error('Email sending timeout');
+        return NextResponse.json(
+          { 
+            success: false, 
+            message: 'Request timeout. Please try again later.' 
+          },
+          { status: 408 }
+        );
+      }
       console.error('Email sending error:', emailError.message);
       return NextResponse.json(
         { 

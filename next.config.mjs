@@ -12,6 +12,10 @@ const nextConfig = {
   },
   // Compress output
   compress: true,
+  // Security: Disable X-Powered-By header
+  poweredByHeader: false,
+  // Security: Enable strict mode
+  reactStrictMode: true,
 };
 
 export default nextConfig;
