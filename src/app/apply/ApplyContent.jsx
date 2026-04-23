@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { jobs } from '../../data/jobs';
 import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
 import PageHeader from '../../components/ui/PageHeader';
@@ -11,6 +13,10 @@ import Button from '../../components/ui/Button';
 import * as motion from 'motion/react-client';
 
 export default function ApplyContent() {
+  const searchParams = useSearchParams();
+  const jobParam = searchParams.get('job');
+  const selectedJob = jobParam ? jobs.find((j) => j.id === jobParam) : null;
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +29,7 @@ export default function ApplyContent() {
     endorsements: [],
     hasTWIC: false,
     message: "",
+    position: selectedJob ? selectedJob.title : "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -84,6 +91,7 @@ export default function ApplyContent() {
             endorsements: [],
             hasTWIC: false,
             message: "",
+            position: selectedJob ? selectedJob.title : "",
           });
         }, 5000);
       } else {
@@ -114,6 +122,19 @@ export default function ApplyContent() {
           />
         </Container>
       </Section>
+
+      {/* Job context banner */}
+      {selectedJob && (
+        <div className="bg-red-950/40 border-b border-red-500/20">
+          <Container className="py-4">
+            <p className="text-sm text-gray-300">
+              Applying for:{' '}
+              <span className="font-semibold text-white">{selectedJob.title}</span>
+              <span className="text-gray-400"> &middot; {selectedJob.location} &middot; {selectedJob.salary}</span>
+            </p>
+          </Container>
+        </div>
+      )}
 
       {/* Application Form */}
       <Section background="dark">

@@ -389,7 +389,15 @@ export const validateApplicationForm = (formData) => {
       errors.push('Message must be less than 2000 characters');
     }
   }
-  
+
+  // Position (optional — pre-filled from job listing)
+  if (formData.position) {
+    sanitizedData.position = sanitizeInput(formData.position);
+    if (sanitizedData.position.length > 200) {
+      errors.push('Position must be less than 200 characters');
+    }
+  }
+
   return {
     isValid: errors.length === 0,
     errors,

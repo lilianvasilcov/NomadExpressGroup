@@ -9,6 +9,8 @@ import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Link from 'next/link';
 import { COMPANY_INFO } from '../../utils/constants';
+import JobCard from '../../components/careers/JobCard';
+import { openJobs } from '../../data/jobs';
 
 export default function CareersContent() {
   const benefits = [
@@ -98,6 +100,37 @@ export default function CareersContent() {
           <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-500 rounded-full blur-3xl animate-pulse will-change-opacity" style={{ animationDuration: '4s' }}></div>
           <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-red-500 rounded-full blur-3xl animate-pulse will-change-opacity" style={{ animationDelay: '2s', animationDuration: '4s' }}></div>
         </div>
+
+        {/* Open Positions */}
+        <section className="py-24 relative">
+          <Container className="relative z-10">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-white mb-3">Open Positions</h2>
+              <p className="text-gray-300">
+                {openJobs.length > 0
+                  ? `${openJobs.length} opening${openJobs.length > 1 ? 's' : ''} available`
+                  : 'No openings at this time — check back soon'}
+              </p>
+            </div>
+            {openJobs.length > 0 ? (
+              <div className="space-y-4 max-w-4xl mx-auto">
+                {openJobs.map((job) => (
+                  <JobCard key={job.id} job={job} />
+                ))}
+              </div>
+            ) : (
+              <div className="max-w-4xl mx-auto bg-black/40 border border-white/10 rounded-lg p-10 text-center">
+                <p className="text-gray-400">
+                  We don&apos;t have any open positions right now, but we&apos;re always looking for great drivers.
+                  Send us your resume and we&apos;ll keep you in mind.
+                </p>
+                <div className="mt-6">
+                  <Button href="/contact" variant="secondary" size="md">Contact Recruiting</Button>
+                </div>
+              </div>
+            )}
+          </Container>
+        </section>
 
         {/* Introduction */}
         <section className="py-24 relative">

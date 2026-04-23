@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "motion": "^12.23.22",
-    "next": "15.5.7",
-    "nodemailer": "^7.0.6",
+    "next": "^15.5.15",
+    "nodemailer": "^8.0.5",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

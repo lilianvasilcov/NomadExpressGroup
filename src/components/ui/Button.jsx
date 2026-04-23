@@ -32,7 +32,11 @@ const Button = ({
   
   if (href) {
     return (
-      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        style={{ display: className.includes('w-full') ? 'block' : 'inline-flex' }}
+      >
         <Link href={href} className={classes} {...props}>
           {children}
         </Link>

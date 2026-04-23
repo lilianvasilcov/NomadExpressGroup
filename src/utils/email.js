@@ -373,7 +373,7 @@ You can reply directly to this email to respond to ${name} at ${email}.
  * @returns {Promise<Object>} - Email send result
  */
 export const sendApplicationFormEmail = async (formData) => {
-  const { firstName, lastName, email, phone, city, state, cdlClass, yearsExperience, endorsements, hasTWIC, message } = formData;
+  const { firstName, lastName, email, phone, city, state, cdlClass, yearsExperience, endorsements, hasTWIC, message, position } = formData;
   
   // Note: email is already sanitized by validation functions for header safety
   // Escape all user input to prevent XSS in email HTML body
@@ -388,12 +388,14 @@ export const sendApplicationFormEmail = async (formData) => {
   const safeEndorsements = endorsements && endorsements.length > 0 ? endorsements.map(e => escapeHtml(e)).join(', ') : 'None';
   const safeHasTWIC = hasTWIC ? 'Yes' : 'No';
   const safeMessage = message ? escapeHtml(message) : 'None';
-  
+  const safePosition = position ? escapeHtml(position) : null;
+
   const fullName = `${firstName} ${lastName}`;
   const safeFullName = `${safeFirstName} ${safeLastName}`;
-  
-  // Use sanitized values for subject (names and cdlClass already sanitized in validation)
-  const emailSubject = `New Driver Application: ${fullName} - ${cdlClass || 'Non-CDL'}`;
+
+  const emailSubject = position
+    ? `New Driver Application: ${fullName} – ${position}`
+    : `New Driver Application: ${fullName} - ${cdlClass || 'Non-CDL'}`;
   const recipientEmail = process.env.HR_EMAIL;
   
   if (!recipientEmail) {
@@ -403,7 +405,7 @@ export const sendApplicationFormEmail = async (formData) => {
   // Plain text version
   const emailText = `
 New Driver Application
-
+${position ? `\nPosition Applied For: ${position}\n` : ''}
 Personal Information:
 Name: ${fullName}
 Email: ${email}
@@ -438,6 +440,13 @@ You can reply directly to this email to respond to ${fullName} at ${email}.
           New Driver Application
         </h2>
         
+        ${safePosition ? `
+        <div style="background-color: #c3002e; padding: 12px 20px; border-radius: 5px; margin: 0 0 20px 0;">
+          <p style="margin: 0; color: #ffffff; font-weight: bold; font-size: 14px;">
+            Position Applied For: ${safePosition}
+          </p>
+        </div>
+        ` : ''}
         <div style="background-color: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0;">
           <h3 style="color: #333; margin-top: 0; margin-bottom: 15px;">Personal Information</h3>
           <p style="margin: 8px 0;"><strong>Name:</strong> ${safeFullName}</p>
